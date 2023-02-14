@@ -46,7 +46,7 @@ const Contact = () => {
             <BiPhoneCall className='contact__option-icon'/>
             <h4>Call</h4>
             <h5>360-393-7255</h5>
-            <a href="tel:3603937255" onClick={window.open('tel:3603937255')}>Call Me</a>
+            <a href="tel:3603937255">Call Me</a>
           </article>
         </div>
         {/* end of contact options */}
