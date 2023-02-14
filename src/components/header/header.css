@@ -1,5 +1,5 @@
 header {
-    height: 100vh;
+    height: 865px;
     padding-top: 7rem;
     overflow: hidden;
 }
@@ -34,7 +34,6 @@ header {
 }
 
 .header__socials::after {
-    content: '';
     width: 1px;
     height: 2rem;
     background: var(--color-primary);
@@ -66,9 +65,9 @@ header {
 
 /* ============================== MEDIA QUERIES (MEDIUM DEVICES) =============================== */
 @media screen and (max-width: 1024px) {
-    header {
+    /* header {
         height: 68vh;
-    }
+    } */
 
 }    
     /* ============================== MEDIA QUERIES (SMALL DEVICES) =============================== */
