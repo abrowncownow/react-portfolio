@@ -36,7 +36,7 @@ const About = () => {
               <small>6+ Completed</small>
             </article>
           </div>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Alex Brown is a Full-Stack web developer with technical skills in Javascript ES6+, CSS3, HTML5, SQL, NoSQL, MySQL, GitHub, MongoDB, Express, React, Node, Handlebars, jQuery, Bootstrap, Bulma, and Heroku. Alex has led and contributed to several successful projects, including a MERN PWA for developers, a collaborative short-story full-stack web app, and a SPA that lets users find local events and buy tickets. In addition to web development, Alex has experience as an engineer resolving hardware failures for Washington Departments of State and as an All-Source Intelligence Analyst for the US Army. Alex holds a Certificate in Full-Stack Web Development from the University of Washington, a Bachelor of Arts in General from The Evergreen State College, and additional certificates and awards.</p>
           <a href="#contact" className="btn btn-primary">Let's Talk</a>
         </div>
       </div>
