@@ -1,6 +1,6 @@
 import React from 'react'
 import './about.css'
-import ME from '../../assets/me.jpg'
+import ME from '../../assets/me.png'
 import {FaAward} from 'react-icons/fa'
 import {FiUsers} from 'react-icons/fi'
 import {VscFolderLibrary} from 'react-icons/vsc'
@@ -36,7 +36,13 @@ const About = () => {
               <small>6+ Completed</small>
             </article>
           </div>
-          <p>Alex Brown is a Full-Stack web developer with technical skills in Javascript ES6+, CSS3, HTML5, SQL, NoSQL, MySQL, GitHub, MongoDB, Express, React, Node, Handlebars, jQuery, Bootstrap, Bulma, and Heroku. Alex has led and contributed to several successful projects, including a MERN PWA for developers, a collaborative short-story full-stack web app, and a SPA that lets users find local events and buy tickets. In addition to web development, Alex has experience as an engineer resolving hardware failures for Washington Departments of State and as an All-Source Intelligence Analyst for the US Army. Alex holds a Certificate in Full-Stack Web Development from the University of Washington, a Bachelor of Arts in General from The Evergreen State College, and additional certificates and awards.</p>
+          <p>Hi there! I'm Alex Brown and I love everything software development. The world of code is my playground and I've spent most of my playing with Javascript ES6+, CSS3, HTML5, SQL, and a lot more. In my toolbox, you'll also find MongoDB, Express, React, Node, and other tech goodies like Handlebars, jQuery, Bootstrap, Bulma, and Heroku. I've also got a soft spot for GitHub - it's like my trusty Swiss Army knife for working together with my team and making our app deployment a breeze.</p>
+          <p>
+          I've had the opportunity to lead and make my mark on some pretty awesome projects. We've built a MERN PWA for fellow developers, whipped up a collaborative short-story full-stack web app, and crafted a neat single-page app for folks to discover local events and grab tickets. And guess what? We hosted all these projects in the cloud, harnessing the flexibility and reach it offers.
+          </p><p>
+          Before I jumped headfirst into the web development world, I spent some time solving hardware failures as an engineer for Worldwide Tech Services. I also sharpened my analytical skills while serving as an All-Source Intelligence Analyst for the US Army. Those experiences taught me a lot and prepared me for the challenges I now tackle in development.
+          </p><p>
+          As for the formal stuff, I earned my stripes with a Full-Stack Web Development Certificate from the University of Washington and a Bachelor of Arts from The Evergreen State College. But beyond the certificates and awards I've picked up along the way, I'm all about lifelong learning and growing every day.</p>
           <a href="#contact" className="btn btn-primary">Let's Talk</a>
         </div>
       </div>
