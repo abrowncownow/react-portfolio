@@ -34,8 +34,8 @@
 
 .section-intro h2, .contact h2, .about h2 { font-size: clamp(2.8rem, 5.5vw, 6.4rem); line-height: .98; letter-spacing: -.06em; margin: 1rem 0; font-weight: 600; }
 .section-intro > p:last-child { max-width: 530px; color: var(--muted); line-height: 1.7; }
-.statement { padding-top: clamp(6rem, 10vw, 11rem); padding-bottom: clamp(6rem, 10vw, 11rem); display: grid; grid-template-columns: .75fr 1.25fr; gap: clamp(3rem, 8vw, 9rem); align-items: center; }
-.kinetic { min-height: 390px; position: relative; background: #0a1512; border: 1px solid var(--line); overflow: hidden; }
+.statement { padding-top: clamp(6rem, 10vw, 11rem); padding-bottom: clamp(6rem, 10vw, 11rem); display: grid; grid-template-columns: .6fr 1.4fr; gap: clamp(3rem, 7vw, 8rem); align-items: center; }
+.kinetic { min-height: 520px; position: relative; background: #0a1512; border: 1px solid var(--line); overflow: hidden; box-shadow: 0 0 80px rgba(216, 255, 104, .06); }
 .kinetic::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 44px 44px; opacity: .18; }
 .kinetic__label { position: absolute; z-index: 2; top: 1.1rem; left: 1.4rem; color: var(--muted); }
 .kinetic canvas { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; }
@@ -106,7 +106,7 @@ footer > a { justify-self: end; }
   .hero__portrait img { max-height: 500px; }
   .hero__status { top: 1rem; }
   .statement { padding-top: 5.5rem; padding-bottom: 5.5rem; }
-  .kinetic { min-height: 330px; }
+  .kinetic { min-height: 430px; }
   .work-card { min-height: 330px; }
   .capability { grid-template-columns: 42px 1fr; }
   .capability ul { grid-column: 2; }

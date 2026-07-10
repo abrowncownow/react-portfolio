@@ -91,8 +91,11 @@ function KineticStatement() {
     let height = 0
     let fontSize = 44
     let lineHeight = 48
-    let lines = []
-    let startY = 0
+    let glyphs = []
+    let animationStart = null
+    let isVisible = false
+
+    const noiseFor = (index) => ((index * 9301 + 49297) % 233280) / 233280
 
     const recalculate = () => {
       const rect = wrap.getBoundingClientRect()
@@ -114,9 +117,32 @@ function KineticStatement() {
       lineHeight = fontSize * 1.08
       const font = `600 ${fontSize}px Arial`
       const prepared = prepareWithSegments(statement, font, { letterSpacing: -1.2 })
-      lines = layoutWithLines(prepared, width - 52, lineHeight).lines
-      startY = (height - lines.length * lineHeight) / 2 + fontSize
+      const lines = layoutWithLines(prepared, width - 52, lineHeight).lines
+      const startY = (height - lines.length * lineHeight) / 2 + fontSize
       context.font = font
+      glyphs = []
+
+      let glyphIndex = 0
+      lines.forEach((line, lineIndex) => {
+        let x = 24
+        for (const char of line.text) {
+          const advance = context.measureText(char).width - 1.2
+          const noise = noiseFor(glyphIndex)
+          if (char.trim()) {
+            glyphs.push({
+              char,
+              x,
+              targetY: startY + lineIndex * lineHeight,
+              startY: -fontSize * (2 + noise * 8),
+              delay: lineIndex * 90 + glyphIndex * 17 + noise * 280,
+              color: lineIndex === lines.length - 1 ? '#d8ff68' : '#f2f5ec',
+              noise,
+            })
+          }
+          x += advance
+          glyphIndex += 1
+        }
+      })
 
       if (reduceMotion) draw(0)
     }
@@ -124,40 +150,64 @@ function KineticStatement() {
     const draw = (time = 0) => {
       context.clearRect(0, 0, width, height)
       context.textBaseline = 'alphabetic'
-      lines.forEach((line, index) => {
-        const drift = reduceMotion ? 0 : Math.sin(time / 900 + index * 0.9) * 7
-        context.fillStyle = index === lines.length - 1 ? '#d8ff68' : '#f2f5ec'
-        context.fillText(line.text, 24 + drift, startY + index * lineHeight)
+
+      const elapsed = reduceMotion || animationStart === null
+        ? 2600
+        : (time - animationStart) % 6200
+
+      glyphs.forEach((glyph) => {
+        const rawProgress = Math.max(0, Math.min(1, (elapsed - glyph.delay) / 680))
+        if (rawProgress <= 0) return
+
+        const c1 = 1.45
+        const c3 = c1 + 1
+        const progress = 1 + c3 * Math.pow(rawProgress - 1, 3) + c1 * Math.pow(rawProgress - 1, 2)
+        const y = glyph.startY + (glyph.targetY - glyph.startY) * progress
+        const x = glyph.x + Math.sin(time / 35 + glyph.noise * 12) * (1 - rawProgress) * 8
+
+        if (rawProgress < 0.94) {
+          context.fillStyle = '#d8ff68'
+          for (let trail = 4; trail > 0; trail -= 1) {
+            context.globalAlpha = (1 - rawProgress) * (0.13 / trail)
+            context.fillText(glyph.char, x, y - trail * 18)
+          }
+        }
+
+        context.globalAlpha = rawProgress < 1 ? 0.72 + rawProgress * 0.28 : 1
+        context.fillStyle = rawProgress < 0.78 ? '#d8ff68' : glyph.color
+        context.fillText(glyph.char, x, y)
       })
+      context.globalAlpha = 1
 
-      const orbX = reduceMotion ? width - 50 : width - 50 + Math.cos(time / 1100) * 12
-      const orbY = reduceMotion ? 44 : 44 + Math.sin(time / 900) * 10
-      context.beginPath()
-      context.arc(orbX, orbY, 8, 0, Math.PI * 2)
-      context.fillStyle = '#ff6a3d'
-      context.fill()
-      context.beginPath()
-      context.arc(orbX, orbY, 18, 0, Math.PI * 2)
-      context.strokeStyle = 'rgba(255, 106, 61, .4)'
-      context.stroke()
-
-      if (!reduceMotion) animationId = requestAnimationFrame(draw)
+      if (!reduceMotion && isVisible) animationId = requestAnimationFrame(draw)
     }
 
     const observer = new ResizeObserver(recalculate)
     observer.observe(wrap)
     recalculate()
-    if (!reduceMotion) animationId = requestAnimationFrame(draw)
+
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting
+      if (isVisible && !reduceMotion) {
+        if (animationStart === null) animationStart = performance.now()
+        cancelAnimationFrame(animationId)
+        animationId = requestAnimationFrame(draw)
+      } else if (!isVisible) {
+        cancelAnimationFrame(animationId)
+      }
+    }, { threshold: 0.25 })
+    visibilityObserver.observe(wrap)
 
     return () => {
       observer.disconnect()
+      visibilityObserver.disconnect()
       cancelAnimationFrame(animationId)
     }
   }, [])
 
   return (
     <div className="kinetic" ref={wrapRef}>
-      <span className="eyebrow kinetic__label">Pretext / live layout</span>
+      <span className="eyebrow kinetic__label">Pretext / glyph rain</span>
       <canvas ref={canvasRef} aria-hidden="true" />
       <p className="sr-only">I turn ambiguous infrastructure problems into secure, repeatable platforms.</p>
     </div>
