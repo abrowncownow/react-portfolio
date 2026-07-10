@@ -84,14 +84,20 @@ function KineticStatement() {
     const canvas = canvasRef.current
     const wrap = wrapRef.current
     const context = canvas.getContext('2d')
-    const statement = 'I turn ambiguous infrastructure problems into secure, repeatable platforms.'
+    const statements = [
+      'Ambiguity in. Reliable platforms out.',
+      'Multi-account AWS. Private networks. Clear boundaries.',
+      'Automate the hard parts. Observe everything.',
+      'Fix the system—not just the incident.',
+      'Complex infrastructure. Boringly reliable outcomes.',
+    ]
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let animationId
     let width = 0
     let height = 0
     let fontSize = 44
     let lineHeight = 48
-    let glyphs = []
+    let scenes = []
     let animationStart = null
     let isVisible = false
 
@@ -116,32 +122,37 @@ function KineticStatement() {
       fontSize = width < 520 ? 31 : 44
       lineHeight = fontSize * 1.08
       const font = `600 ${fontSize}px Arial`
-      const prepared = prepareWithSegments(statement, font, { letterSpacing: -1.2 })
-      const lines = layoutWithLines(prepared, width - 52, lineHeight).lines
-      const startY = (height - lines.length * lineHeight) / 2 + fontSize
       context.font = font
-      glyphs = []
+      scenes = statements.map((statement, sceneIndex) => {
+        const prepared = prepareWithSegments(statement, font, { letterSpacing: -1.2 })
+        const lines = layoutWithLines(prepared, width - 52, lineHeight).lines
+        const startY = (height - lines.length * lineHeight) / 2 + fontSize
+        const glyphs = []
+        let glyphIndex = 0
 
-      let glyphIndex = 0
-      lines.forEach((line, lineIndex) => {
-        let x = 24
-        for (const char of line.text) {
-          const advance = context.measureText(char).width - 1.2
-          const noise = noiseFor(glyphIndex)
-          if (char.trim()) {
-            glyphs.push({
-              char,
-              x,
-              targetY: startY + lineIndex * lineHeight,
-              startY: -fontSize * (2 + noise * 8),
-              delay: lineIndex * 90 + glyphIndex * 17 + noise * 280,
-              color: lineIndex === lines.length - 1 ? '#d8ff68' : '#f2f5ec',
-              noise,
-            })
+        lines.forEach((line, lineIndex) => {
+          let x = 24
+          for (const char of line.text) {
+            const advance = context.measureText(char).width - 1.2
+            const noise = noiseFor(glyphIndex + sceneIndex * 97)
+            if (char.trim()) {
+              glyphs.push({
+                char,
+                x,
+                targetY: startY + lineIndex * lineHeight,
+                startY: -fontSize * (2 + noise * 8),
+                delay: lineIndex * 75 + glyphIndex * 14 + noise * 230,
+                exitDelay: glyphIndex * 7 + noise * 90,
+                color: lineIndex === lines.length - 1 ? '#d8ff68' : '#f2f5ec',
+                noise,
+              })
+            }
+            x += advance
+            glyphIndex += 1
           }
-          x += advance
-          glyphIndex += 1
-        }
+        })
+
+        return glyphs
       })
 
       if (reduceMotion) draw(0)
@@ -151,19 +162,29 @@ function KineticStatement() {
       context.clearRect(0, 0, width, height)
       context.textBaseline = 'alphabetic'
 
-      const elapsed = reduceMotion || animationStart === null
-        ? 2600
-        : (time - animationStart) % 6200
+      const sceneDuration = 5200
+      const totalDuration = sceneDuration * scenes.length
+      const elapsed = reduceMotion || animationStart === null ? 2400 : (time - animationStart) % totalDuration
+      const sceneIndex = reduceMotion ? 0 : Math.floor(elapsed / sceneDuration)
+      const sceneTime = reduceMotion ? 2400 : elapsed % sceneDuration
+      const glyphs = scenes[sceneIndex] || []
 
       glyphs.forEach((glyph) => {
-        const rawProgress = Math.max(0, Math.min(1, (elapsed - glyph.delay) / 680))
+        const rawProgress = Math.max(0, Math.min(1, (sceneTime - glyph.delay) / 620))
         if (rawProgress <= 0) return
+
+        const exitProgress = reduceMotion
+          ? 0
+          : Math.max(0, Math.min(1, (sceneTime - 3650 - glyph.exitDelay) / 480))
 
         const c1 = 1.45
         const c3 = c1 + 1
         const progress = 1 + c3 * Math.pow(rawProgress - 1, 3) + c1 * Math.pow(rawProgress - 1, 2)
-        const y = glyph.startY + (glyph.targetY - glyph.startY) * progress
-        const x = glyph.x + Math.sin(time / 35 + glyph.noise * 12) * (1 - rawProgress) * 8
+        const settledY = glyph.startY + (glyph.targetY - glyph.startY) * progress
+        const y = settledY + Math.pow(exitProgress, 2) * (110 + glyph.noise * 80)
+        const x = glyph.x
+          + Math.sin(time / 35 + glyph.noise * 12) * (1 - rawProgress) * 8
+          + Math.sin(time / 24 + glyph.noise * 18) * exitProgress * 10
 
         if (rawProgress < 0.94) {
           context.fillStyle = '#d8ff68'
@@ -173,7 +194,7 @@ function KineticStatement() {
           }
         }
 
-        context.globalAlpha = rawProgress < 1 ? 0.72 + rawProgress * 0.28 : 1
+        context.globalAlpha = (rawProgress < 1 ? 0.72 + rawProgress * 0.28 : 1) * (1 - exitProgress)
         context.fillStyle = rawProgress < 0.78 ? '#d8ff68' : glyph.color
         context.fillText(glyph.char, x, y)
       })
@@ -209,7 +230,13 @@ function KineticStatement() {
     <div className="kinetic" ref={wrapRef}>
       <span className="eyebrow kinetic__label">Pretext / glyph rain</span>
       <canvas ref={canvasRef} aria-hidden="true" />
-      <p className="sr-only">I turn ambiguous infrastructure problems into secure, repeatable platforms.</p>
+      <div className="sr-only">
+        <p>Ambiguity in. Reliable platforms out.</p>
+        <p>Multi-account AWS. Private networks. Clear boundaries.</p>
+        <p>Automate the hard parts. Observe everything.</p>
+        <p>Fix the system—not just the incident.</p>
+        <p>Complex infrastructure. Boringly reliable outcomes.</p>
+      </div>
     </div>
   )
 }
