@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { layoutWithLines, prepareWithSegments } from '@chenglou/pretext'
 import { FiArrowDownRight, FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
-import profile from './assets/profile.png'
+import profile from './assets/profile.webp'
 import './app.css'
 
 const impact = [
@@ -269,7 +269,7 @@ function App() {
           </div>
           <div className="hero__portrait" aria-label="Portrait of Alex Brown">
             <div className="hero__status"><span /> Available for the next hard problem</div>
-            <img src={profile} alt="Alex Brown" />
+            <img src={profile} alt="Alex Brown" width="1333" height="2000" fetchPriority="high" decoding="async" />
             <div className="hero__monogram">AB</div>
           </div>
         </section>
