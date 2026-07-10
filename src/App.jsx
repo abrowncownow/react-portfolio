@@ -32,8 +32,8 @@ const capabilities = [
   {
     index: '04',
     title: 'Reliability & security',
-    copy: 'I troubleshoot production across application, IAM, database, network, and operating-system boundaries—then convert the fix into a durable platform improvement.',
-    tags: ['Least privilege', 'Secrets Manager', 'CloudWatch', 'Datadog', 'TLS', 'PostgreSQL'],
+    copy: 'I troubleshoot production across application, IAM, database, network, and operating-system boundaries while translating control requirements into practical, auditable engineering.',
+    tags: ['Least privilege', 'Secrets Manager', 'FedRAMP', 'SOC 2', 'StateRAMP', 'SPARC'],
   },
 ]
 
@@ -66,7 +66,7 @@ const work = [
   {
     eyebrow: 'Security',
     title: 'Secure-by-default infrastructure',
-    copy: 'Remediated TLS, IAM, database-driver, secrets, and network findings while building least-privilege access patterns for ECS, Lambda, monitoring, databases, and cross-account workloads.',
+    copy: 'Remediated TLS, IAM, database-driver, secrets, and network findings while building least-privilege access patterns and supporting environments shaped by FedRAMP, SOC 2, StateRAMP, and SPARC expectations.',
   },
 ]
 
@@ -89,6 +89,7 @@ function KineticStatement() {
       'Multi-account AWS. Private networks. Clear boundaries.',
       'Automate the hard parts. Observe everything.',
       'Fix the system—not just the incident.',
+      'Trusted with the keys. Accountable for the outcome.',
       'Complex infrastructure. Boringly reliable outcomes.',
     ]
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -235,6 +236,7 @@ function KineticStatement() {
         <p>Multi-account AWS. Private networks. Clear boundaries.</p>
         <p>Automate the hard parts. Observe everything.</p>
         <p>Fix the system—not just the incident.</p>
+        <p>Trusted with the keys. Accountable for the outcome.</p>
         <p>Complex infrastructure. Boringly reliable outcomes.</p>
       </div>
     </div>
@@ -328,6 +330,21 @@ function App() {
             {principles.map(([title, copy], index) => (
               <article key={title}><span>0{index + 1}</span><div><h3>{title}</h3><p>{copy}</p></div></article>
             ))}
+          </div>
+        </section>
+
+        <section className="trust section-pad">
+          <div className="trust__title">
+            <p className="eyebrow">Integrity / access / accountability</p>
+            <h2>Trusted with<br />the keys.</h2>
+          </div>
+          <div className="trust__body">
+            <p className="trust__lead">My work has repeatedly placed me close to systems and information where judgment matters as much as technical ability.</p>
+            <p>In platform engineering, that means privileged production access, sensitive infrastructure, secrets, and changes where a careless action can carry real consequences. During my U.S. Army service, I was entrusted with Top Secret classified information. In both environments, integrity means restraint, clear communication, auditability, and owning the outcome.</p>
+            <p>I also bring experience working with security and compliance expectations including FedRAMP, SOC 2, StateRAMP, and SPARC—turning controls into concrete practices across IAM, logging, change management, vulnerability remediation, secrets, and network boundaries.</p>
+            <ul className="trust__tags" aria-label="Security and compliance experience">
+              {['Privileged production access', 'FedRAMP', 'SOC 2', 'StateRAMP', 'SPARC', 'Top Secret — U.S. Army service'].map((item) => <li key={item}>{item}</li>)}
+            </ul>
           </div>
         </section>
 
