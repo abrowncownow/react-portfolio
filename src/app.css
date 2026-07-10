@@ -38,7 +38,7 @@
 .kinetic { min-height: 390px; position: relative; background: #0a1512; border: 1px solid var(--line); overflow: hidden; }
 .kinetic::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 44px 44px; opacity: .18; }
 .kinetic__label { position: absolute; z-index: 2; top: 1.1rem; left: 1.4rem; color: var(--muted); }
-.kinetic canvas { position: relative; z-index: 1; display: block; }
+.kinetic canvas { position: absolute; inset: 0; z-index: 1; display: block; width: 100%; height: 100%; }
 
 .work { padding-top: clamp(6rem, 10vw, 10rem); padding-bottom: clamp(6rem, 10vw, 10rem); background: #eef1e9; color: #0a1512; }
 .work .eyebrow { color: #4d6144; }
