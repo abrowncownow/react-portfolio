@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="52" height="52" patternUnits="userSpaceOnUse">
+      <path d="M52 0H0v52" fill="none" stroke="#d8ff68" stroke-opacity=".08"/>
+    </pattern>
+    <radialGradient id="glow" cx="78%" cy="25%" r="65%">
+      <stop offset="0" stop-color="#d8ff68" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#07110f" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#07110f"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="1035" cy="122" r="12" fill="#ff6a3d"/>
+  <circle cx="1035" cy="122" r="30" fill="none" stroke="#ff6a3d" stroke-opacity=".45"/>
+  <text x="76" y="90" fill="#d8ff68" font-family="monospace" font-size="20" letter-spacing="4">CLOUD / PLATFORM / RELIABILITY</text>
+  <text x="70" y="290" fill="#f2f5ec" font-family="Arial, sans-serif" font-size="102" font-weight="700" letter-spacing="-6">Alex Brown</text>
+  <text x="76" y="382" fill="#9fa9a3" font-family="Arial, sans-serif" font-size="44">Cloud &amp; Platform Engineer</text>
+  <line x1="76" y1="466" x2="1124" y2="466" stroke="#f2f5ec" stroke-opacity=".18"/>
+  <text x="76" y="530" fill="#f2f5ec" font-family="monospace" font-size="22">AWS · INFRASTRUCTURE AS CODE · NETWORKING · DELIVERY SYSTEMS</text>
+  <text x="76" y="579" fill="#ff9a78" font-family="monospace" font-size="18">ABROWNCOWNOW.COM</text>
+</svg>
