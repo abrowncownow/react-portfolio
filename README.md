@@ -19,7 +19,7 @@ Create a production build with `npm run build`; output is written to `dist/`.
 
 ## Deployment
 
-Run `npm run deploy` to build and update the existing `gh-pages` branch. This keeps `https://abrowncownow.github.io/react-portfolio/` current. In the repository's **Settings → Pages**, set the custom domain to `abrowncownow.com` after its DNS records point to GitHub Pages.
+Run `npm run deploy` to build and update the existing `gh-pages` branch. This keeps `https://abrowncownow.github.io/react-portfolio/` current. In the repository's **Settings → Pages**, set the custom domain to `abrowncownow.com` only after its Route 53 records point to GitHub Pages.
 
 The domain currently uses Cloudflare nameservers. Point the apex to GitHub Pages with these DNS-only A records:
 
