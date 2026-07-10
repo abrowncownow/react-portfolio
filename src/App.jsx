@@ -97,12 +97,17 @@ function KineticStatement() {
     const recalculate = () => {
       const rect = wrap.getBoundingClientRect()
       const ratio = Math.min(window.devicePixelRatio || 1, 2)
-      width = Math.max(rect.width, 280)
-      height = Math.max(rect.height, 260)
+      const nextWidth = Math.round(Math.max(rect.width, 280))
+      const nextHeight = Math.round(Math.max(rect.height, 260))
+
+      // The canvas must never affect the dimensions being observed. Skipping
+      // identical measurements also prevents redundant backing-store resets.
+      if (nextWidth === width && nextHeight === height) return
+
+      width = nextWidth
+      height = nextHeight
       canvas.width = width * ratio
       canvas.height = height * ratio
-      canvas.style.width = `${width}px`
-      canvas.style.height = `${height}px`
       context.setTransform(ratio, 0, 0, ratio, 0, 0)
 
       fontSize = width < 520 ? 31 : 44
