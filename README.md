@@ -5,7 +5,6 @@ The source for [abrowncownow.com](https://abrowncownow.com), rebuilt around Alex
 ## Stack
 
 - React 19 + Vite
-- [Pretext](https://github.com/chenglou/pretext) for the live kinetic text layout
 - GitHub Pages deployment through the existing `gh-pages` branch
 
 ## Local development

@@ -5,7 +5,6 @@
   "homepage": "https://abrowncownow.com",
   "type": "module",
   "dependencies": {
-    "@chenglou/pretext": "^0.0.8",
     "@fontsource/dm-mono": "^5.2.7",
     "@fontsource/manrope": "^5.2.8",
     "@fontsource/playfair-display": "^5.2.8",
